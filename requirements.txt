@@ -1,4 +1,5 @@
-flask
 requests
 openai
+Pillow
+Flask
 python-dotenv

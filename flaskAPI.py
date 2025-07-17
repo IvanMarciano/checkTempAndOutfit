@@ -16,6 +16,10 @@ def evaluar_abrigado():
     lon = request.form.get("lon")
     imagen = request.files.get("imagen")
 
+    print("📍 Coordenadas recibidas:", lat, lon)
+    print("📸 Imagen:", imagen.filename)
+    print("🌡️ Clima:", clima)
+
     if not lat or not lon or not imagen:
         return jsonify({"error": "Faltan datos: lat, lon o imagen"}), 400
 

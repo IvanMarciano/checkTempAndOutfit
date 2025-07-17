@@ -16,19 +16,18 @@ def evaluar_abrigado():
     lon = request.form.get("lon")
     imagen = request.files.get("imagen")
 
-    print("📍 Coordenadas recibidas:", lat, lon)
-    print("📸 Imagen:", imagen.filename)
-    print("🌡️ Clima:", clima)
-
     if not lat or not lon or not imagen:
         return jsonify({"error": "Faltan datos: lat, lon o imagen"}), 400
 
     # Paso 1: obtener clima
     clima = get_clima(lat, lon, OWM_API_KEY)
     if not clima:
+        print("❌ Error al obtener clima para:", lat, lon)
         return jsonify({"error": "Error obteniendo clima"}), 500
 
-    # Paso 2: analizar ropa y decidir si está abrigado (con GPT)
+    print("🌡️ Clima:", clima)
+
+    # Paso 2: analizar ropa
     resultado_gpt = analizar_ropa(
         imagen,
         OPENAI_API_KEY,
@@ -39,7 +38,6 @@ def evaluar_abrigado():
     if resultado_gpt is None:
         return jsonify({"error": "Error al analizar imagen"}), 500
 
-    # Respuesta unificada
     return jsonify({
         "clima": clima,
         **resultado_gpt

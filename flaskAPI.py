@@ -4,7 +4,6 @@ from utils import get_clima, analizar_ropa
 from dotenv import load_dotenv
 
 # Cargar claves desde .env
-load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OWM_API_KEY = os.getenv("OWM_API_KEY")
 

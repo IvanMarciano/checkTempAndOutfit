@@ -3,3 +3,4 @@ openai
 Pillow
 Flask
 python-dotenv
+gunicorn 

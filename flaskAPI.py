@@ -16,6 +16,8 @@ def evaluar_abrigado():
     lon = request.form.get("lon")
     imagen = request.files.get("imagen")
 
+    print("📥 Datos recibidos - lat:", lat, "| lon:", lon, "| imagen:", "sí" if imagen else "no")
+
     if not lat or not lon or not imagen:
         return jsonify({"error": "Faltan datos: lat, lon o imagen"}), 400
 
@@ -25,7 +27,7 @@ def evaluar_abrigado():
         print("❌ Error al obtener clima para:", lat, lon)
         return jsonify({"error": "Error obteniendo clima"}), 500
 
-    print("🌡️ Clima:", clima)
+    print("🌡️ Clima recibido:", clima)
 
     # Paso 2: analizar ropa
     resultado_gpt = analizar_ropa(
@@ -36,7 +38,10 @@ def evaluar_abrigado():
     )
 
     if resultado_gpt is None:
+        print("⚠️ El resultado de GPT fue None.")
         return jsonify({"error": "Error al analizar imagen"}), 500
+
+    print("✅ Análisis completado:", resultado_gpt)
 
     return jsonify({
         "clima": clima,
